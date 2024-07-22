@@ -1,0 +1,48 @@
+name: Build and deploy to pages
+
+on:
+  workflow_dispatch:
+
+# GITHUB_TOKEN permssions for deploying to pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # TODO: Change this after the web client code has been merged.
+          # See https://github.com/laurent22/joplin/pull/10650.
+          repository: 'personalizedrefrigerator/joplin'
+          ref: work/mobile-web
+      - name: Prepare yarn
+        run: corepack enable
+      - name: Install dependencies
+        run: yarn install
+      - name: Build pages
+        run: cd packages/app-mobile/ && yarn web
+      - name: Copy pages artifact
+        run: |
+          mkdir pages/
+          cp -r packages/app-mobile/web/dist/ pages/web-client/
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'pages/'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
