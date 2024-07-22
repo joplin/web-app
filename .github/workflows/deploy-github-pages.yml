@@ -35,7 +35,6 @@ jobs:
         run: cd packages/app-mobile/ && yarn web
       - name: Copy pages artifact
         run: |
-          mkdir pages/
           cp -r packages/app-mobile/web/dist/ pages/
       - name: Setup Pages
         uses: actions/configure-pages@v5
