@@ -12,7 +12,7 @@ Joplin Web is Joplin Mobile, running in a web browser.
 
 ### Where is my data stored?
 
-Like Joplin Mobile, Joplin Web is local-first. Notes and attachments are stored locally on your computer, but can optionally be synced with one of the supported sync targets. As a result, after an initial setup, Joplin Web should work without an internet connection.
+Like Joplin Mobile, Joplin Web is local-first. Notes and attachments are stored locally on your computer, but can optionally be synced with one of the supported sync targets. As a result, Joplin Web can be used offline.
 
 ### What browsers does it support?
 
