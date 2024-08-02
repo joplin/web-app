@@ -23,10 +23,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          # TODO: Change this after the web client code has been merged.
-          # See https://github.com/laurent22/joplin/pull/10650.
-          repository: 'personalizedrefrigerator/joplin'
-          ref: work/mobile-web
+          repository: 'laurent22/joplin'
+          ref: dev
       - name: Prepare yarn
         run: corepack enable
       - name: Install dependencies
