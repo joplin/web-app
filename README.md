@@ -1,6 +1,6 @@
 # Joplin Web App
 
-This repository deploys the Joplin web client to GitHub pages.
+This repository deploys the Joplin web client to https://app.joplincloud.com/ with GitHub pages.
 
 The web app source code can be found in [the main Joplin repository](https://github.com/laurent22/joplin).
 
@@ -38,6 +38,7 @@ Some features are available only on certain platforms:
 - Drop images and files from another app (as of July 2024):
 	- ✅ Chrome (Desktop), Safari, Firefox (Desktop)
 	- ❌ Chrome (Android)
+
 
 [^1]: Requires [support for showDirectoryPicker](https://caniuse.com/?search=showDirectoryPicker).
 [^2]: Requires [Web Share API support](https://caniuse.com/?search=web%20share%20api).
