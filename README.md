@@ -16,7 +16,7 @@ The web app source code can be found in [the main Joplin repository](https://git
 Fetch the latest official Joplin WebApp image:
 
 ```bash
-docker pull ghcr.io/joplin/web-app:latest
+docker pull ghcr.io/adamoutler/web-app:latest
 ```
 
 **2. Run the Docker Container:**
@@ -24,7 +24,7 @@ docker pull ghcr.io/joplin/web-app:latest
 Run the container, mapping a host port (e.g., `8088`) to the container's port `80`, and giving it a recognizable name. Running in detached mode (`-d`) is recommended for background operation.
 
 ```bash
-docker run -d --name joplin-webapp -p 8088:80 ghcr.io/joplin/web-app:latest
+docker run -d --name joplin-webapp -p 8088:80 ghcr.io/adamoutler/web-app:latest
 ```
 
 * You will initially access the WebApp via `http://<your-docker-host-ip>:8088`.
