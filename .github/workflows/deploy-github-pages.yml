@@ -21,10 +21,30 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           repository: 'laurent22/joplin'
           ref: dev
+      - name: Fetch all branches
+        # actions/checkout only fetches the current branch:
+        run: git fetch --depth=1
+      - name: Checkout latest release branch
+        run: |
+          ALL_BRANCHES="$(git for-each-ref --format '%(refname:short)' 'refs/remotes/origin/*' | sed 's;origin/;;')"
+          RELEASE_BRANCHES="$(echo "$ALL_BRANCHES" | grep -P '^release-[0-9]+\.[0-9]+$')"
+          echo "Found release branches: $RELEASE_BRANCHES"
+          
+          LATEST_RELEASE="release-$(echo "$RELEASE_BRANCHES" \
+              | sed 's/^release-//' \
+              | sort --version-sort \
+              | tail -n1)"
+          if [[ "$LATEST_RELEASE" = "release-" ]]; then
+            echo "No release branches found."
+            exit 2
+          fi
+
+          echo "Switching to branch: $LATEST_RELEASE"
+          git checkout "$LATEST_RELEASE"
       - name: Prepare yarn
         run: corepack enable
       - name: Install dependencies
@@ -35,11 +55,11 @@ jobs:
         run: |
           cp -r packages/app-mobile/web/dist/ pages/
       - name: Setup Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: 'pages/'
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
